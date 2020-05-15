@@ -1,0 +1,59 @@
+package tree;
+
+import java.util.Stack;
+
+public class InorderWithoutRicursion {
+
+    static Node root;
+    Stack<Node> stack = new Stack<Node>();
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int d) {
+
+            this.data = d;
+            left = null;
+            right = null;
+        }
+    }
+
+    public void print(Node root) {
+
+        if (root == null)
+            return;
+
+        print(root.left);
+        System.out.print(root.data + " ");
+        print(root.right);
+    }
+
+    public void inOrder(Node root) {
+
+        if (root == null)
+            return;
+
+        while (root != null || stack.size()>0) {
+            while (root != null) {
+                stack.add(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            System.out.print(root.data + " ");
+            root = root.right;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        InorderWithoutRicursion tree = new InorderWithoutRicursion();
+        root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        tree.inOrder(root);
+        //tree.print(root);
+    }
+}
